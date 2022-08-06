@@ -1,4 +1,5 @@
 import 'package:finalmobile_premacio_bloc/bloc/bloc/task_bloc.dart';
+import 'package:finalmobile_premacio_bloc/services/id_gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,10 @@ class AddTaskScreen extends StatelessWidget {
                   child: const Text('Cancel')),
               ElevatedButton(
                   onPressed: () {
-                    var task = Task(title: titleController.text);
+                    var task = Task(
+                      title: titleController.text,
+                      id: GUIDGen.generate(),
+                    );
                     BlocProvider.of<TaskBloc>(context).add(AddTask(task: task));
                     // context.read<TaskBloc>().add(AddTask(task: task));
                     Navigator.pop(context);
