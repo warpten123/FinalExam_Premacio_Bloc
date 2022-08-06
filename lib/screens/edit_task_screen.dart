@@ -7,7 +7,7 @@ import '../models/task.dart';
 
 // ignore: must_be_immutable
 class EditTaskScreen extends StatelessWidget {
-  late final Task oldTask;
+  final Task oldTask;
   EditTaskScreen({
     Key? key,
     required this.oldTask,
@@ -57,13 +57,16 @@ class EditTaskScreen extends StatelessWidget {
                   child: const Text('Cancel')),
               ElevatedButton(
                   onPressed: () {
-                    var task = Task(
+                    var editedTask = Task(
                       date: DateTime.now().toString(),
                       title: titleController.text,
-                      id: GUIDGen.generate(),
+                      id: oldTask.id,
+                      isDone: false,
+                      isFavorite: oldTask.isFavorite,
                       description: descController.text,
                     );
-                    BlocProvider.of<TaskBloc>(context).add(AddTask(task: task));
+                    BlocProvider.of<TaskBloc>(context)
+                        .add(EditTask(oldTask: oldTask, newTask: editedTask));
                     // context.read<TaskBloc>().add(AddTask(task: task));
                     Navigator.pop(context);
                   },

@@ -1,4 +1,5 @@
 import 'package:finalmobile_premacio_bloc/bloc/task_bloc/task_bloc.dart';
+import 'package:finalmobile_premacio_bloc/screens/edit_task_screen.dart';
 import 'package:finalmobile_premacio_bloc/widget/pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,21 @@ class TaskTile extends StatelessWidget {
     task.isDeleted!
         ? context.read<TaskBloc>().add(DeleteTask(task: task))
         : context.read<TaskBloc>().add(RemoveTask(task: task));
+  }
+
+  void _editTask(BuildContext context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: EditTaskScreen(
+                  oldTask: task,
+                ),
+              ),
+            ));
   }
 
   @override
@@ -67,6 +83,7 @@ class TaskTile extends StatelessWidget {
                     : null),
             PopupMenu(
               task: task,
+              editTaskCallback: () => _editTask(context),
               cancelorDeleteCallBack: () => _removeTask(context, task),
               likeorDislike: () =>
                   context.read<TaskBloc>().add(TaskFavorite(task: task)),

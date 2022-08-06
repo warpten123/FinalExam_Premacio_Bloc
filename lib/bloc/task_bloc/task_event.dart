@@ -67,5 +67,5 @@ class EditTask extends TaskEvent {
   });
 
   @override
-  List<Object> get props => [task];
+  List<Object> get props => [oldTask, newTask];
 }
