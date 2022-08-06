@@ -69,3 +69,13 @@ class EditTask extends TaskEvent {
   @override
   List<Object> get props => [oldTask, newTask];
 }
+
+class RestoreTask extends TaskEvent {
+  final Task task;
+  RestoreTask({
+    required this.task,
+  });
+
+  @override
+  List<Object> get props => [task];
+}

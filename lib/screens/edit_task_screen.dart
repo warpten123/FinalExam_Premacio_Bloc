@@ -24,7 +24,7 @@ class EditTaskScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           const Text(
-            'Add Task',
+            'Edit Task',
             style: TextStyle(fontSize: 24),
           ),
           const SizedBox(
