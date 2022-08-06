@@ -1,13 +1,12 @@
 import 'package:finalmobile_premacio_bloc/bloc/bloc/task_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../models/task.dart';
 import '../widget/task_list.dart';
 import 'add_task_screen.dart';
 
 class TasksScreen extends StatefulWidget {
-  TasksScreen({Key? key}) : super(key: key);
+  const TasksScreen({Key? key}) : super(key: key);
 
   @override
   State<TasksScreen> createState() => _TasksScreenState();
@@ -36,7 +35,9 @@ class _TasksScreenState extends State<TasksScreen> {
             title: const Text('Tasks App'),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  _addTask(context);
+                },
                 icon: const Icon(Icons.add),
               )
             ],
@@ -44,7 +45,7 @@ class _TasksScreenState extends State<TasksScreen> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
+              const Center(
                 child: Chip(
                   label: Text(
                     'Tasks:',

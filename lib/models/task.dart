@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:uuid/uuid.dart';
 
+// ignore: must_be_immutable
 class Task extends Equatable {
   final String title;
 
@@ -36,4 +35,16 @@ class Task extends Equatable {
   }
   @override
   List<Object?> get props => [title, isDone, isDeleted];
+
+  Task copyWith({
+    String? title,
+    bool? isDone,
+    bool? isDeleted,
+  }) {
+    return Task(
+      title: title ?? this.title,
+      isDone: isDone ?? this.isDone,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
 }

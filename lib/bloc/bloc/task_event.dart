@@ -10,7 +10,7 @@ abstract class TaskEvent extends Equatable {
 
 class AddTask extends TaskEvent {
   final Task task;
-  AddTask({
+  const AddTask({
     required this.task,
   });
 
@@ -20,7 +20,7 @@ class AddTask extends TaskEvent {
 
 class UpdateTask extends TaskEvent {
   final Task task;
-  UpdateTask({
+  const UpdateTask({
     required this.task,
   });
 
@@ -30,7 +30,7 @@ class UpdateTask extends TaskEvent {
 
 class DeleteTask extends TaskEvent {
   final Task task;
-  DeleteTask({
+  const DeleteTask({
     required this.task,
   });
 

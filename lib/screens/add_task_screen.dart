@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/task.dart';
-import '../widget/task_list.dart';
 
+// ignore: must_be_immutable
 class AddTaskScreen extends StatelessWidget {
   AddTaskScreen({
     Key? key,
@@ -16,17 +16,17 @@ class AddTaskScreen extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: <Widget>[
-          Text(
+          const Text(
             'Add Task',
             style: TextStyle(fontSize: 24),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextField(
             autofocus: true,
             controller: titleController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 label: Text('Title'), border: OutlineInputBorder()),
           ),
           Row(

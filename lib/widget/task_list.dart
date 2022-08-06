@@ -1,4 +1,6 @@
+import 'package:finalmobile_premacio_bloc/bloc/bloc/task_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/task.dart';
 
@@ -21,8 +23,13 @@ class TaskList extends StatelessWidget {
               title: Text(task.title),
               trailing: Checkbox(
                 value: task.isDone,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  BlocProvider.of<TaskBloc>(context)
+                      .add(UpdateTask(task: task));
+                },
               ),
+              onLongPress: () => BlocProvider.of<TaskBloc>(context)
+                  .add(DeleteTask(task: task)),
             );
           }),
     );
