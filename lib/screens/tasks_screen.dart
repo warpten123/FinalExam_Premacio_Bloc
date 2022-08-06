@@ -1,4 +1,5 @@
 import 'package:finalmobile_premacio_bloc/bloc/bloc/task_bloc.dart';
+import 'package:finalmobile_premacio_bloc/screens/task_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/task.dart';
@@ -7,7 +8,7 @@ import 'add_task_screen.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
-
+  static const path = 'task_screen';
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
@@ -42,13 +43,14 @@ class _TasksScreenState extends State<TasksScreen> {
               )
             ],
           ),
+          drawer: const TaskDrawer(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Center(
+              Center(
                 child: Chip(
                   label: Text(
-                    'Tasks:',
+                    '${state.allTasks.length} Tasks',
                   ),
                 ),
               ),

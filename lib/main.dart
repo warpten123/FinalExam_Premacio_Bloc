@@ -1,4 +1,5 @@
 import 'package:finalmobile_premacio_bloc/bloc/bloc/task_bloc.dart';
+import 'package:finalmobile_premacio_bloc/services/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -12,14 +13,16 @@ void main() async {
       storageDirectory: await getApplicationDocumentsDirectory());
 
   HydratedBlocOverrides.runZoned(
-    () => runApp(const MyApp()),
+    () => runApp(MyApp(
+      appRouter: AppRouter(),
+    )),
     storage: storage,
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key, required this.appRouter}) : super(key: key);
+  final AppRouter appRouter;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const TasksScreen(),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
   }
