@@ -1,7 +1,8 @@
 import 'package:finalmobile_premacio_bloc/bloc/switch_bloc/bloc/switch_bloc.dart';
 import 'package:finalmobile_premacio_bloc/bloc/task_bloc/task_bloc.dart';
 import 'package:finalmobile_premacio_bloc/screens/recycle_bin.dart';
-import 'package:finalmobile_premacio_bloc/screens/tasks_screen.dart';
+import 'package:finalmobile_premacio_bloc/screens/tabs_screen.dart';
+import 'package:finalmobile_premacio_bloc/screens/pending_task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,10 +35,9 @@ class _TaskDrawerState extends State<TaskDrawer> {
                 return ListTile(
                   leading: Icon(Icons.folder),
                   title: Text('My Tasks'),
-                  trailing: Text('${state.allTasks.length}'),
+                  trailing: Text('${state.pendingTasks.length}'),
                   onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(TasksScreen.path);
+                    Navigator.of(context).pushReplacementNamed(TabsScreen.path);
                   },
                 );
               },
