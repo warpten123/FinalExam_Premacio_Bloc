@@ -1,4 +1,4 @@
-import 'package:finalmobile_premacio_bloc/bloc/bloc/task_bloc.dart';
+import 'package:finalmobile_premacio_bloc/bloc/task_bloc/task_bloc.dart';
 import 'package:finalmobile_premacio_bloc/screens/task_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,7 @@ class RecycleBin extends StatelessWidget {
           )
         ],
       ),
-      drawer: const TaskDrawer(),
+      drawer: TaskDrawer(),
       body: BlocBuilder<TaskBloc, TaskState>(
         builder: (context, state) {
           return Column(
