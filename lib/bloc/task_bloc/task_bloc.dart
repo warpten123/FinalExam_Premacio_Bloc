@@ -13,6 +13,8 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     on<UpdateTask>(_onUpdateTask);
     on<DeleteTask>(_onDeleteTask);
     on<RemoveTask>(_onRemoveToBin);
+    on<TaskFavorite>(_MarkFavorite);
+    on<EditTask>(_onEditTask);
   }
   void _onAddTask(AddTask event, Emitter<TaskState> emit) {
     final state = this.state;
@@ -63,6 +65,58 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
         favoriteTasks: List.from(state.favoriteTasks)..remove(event.task),
         removedTasks: List.from(state.removedTasks)
           ..add(event.task.copyWith(isDeleted: true))));
+  }
+
+  void _MarkFavorite(TaskFavorite event, Emitter<TaskState> emit) {
+    final state = this.state;
+    List<Task> pendingTasks = state.pendingTasks;
+    List<Task> completedTasks = state.completedTasks;
+    List<Task> favoriteTasks = state.favoriteTasks;
+    if (event.task.isDone == false) {
+      // if task is not yet complete
+      if (event.task.isFavorite == false) {
+        //and task is not yet favorite
+        var taskIndex = pendingTasks.indexOf(event.task);
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: true));
+        favoriteTasks.insert(0, event.task.copyWith(isFavorite: true));
+      } else {
+        //if task is already favorite,
+        var taskIndex = pendingTasks.indexOf(event.task);
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: false));
+        favoriteTasks.remove(event.task);
+      }
+    } else {
+      if (event.task.isFavorite == false) {
+        //and task is not yet favorite
+        var taskIndex = completedTasks.indexOf(event.task);
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: true));
+        favoriteTasks.insert(0, event.task.copyWith(isFavorite: true));
+      } else {
+        //if task is already favorite,
+        var taskIndex = completedTasks.indexOf(event.task);
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: false));
+        favoriteTasks.remove(event.task);
+      }
+    }
+    emit(TaskState(
+        pendingTasks: pendingTasks,
+        removedTasks: state.removedTasks,
+        completedTasks: completedTasks,
+        favoriteTasks: favoriteTasks));
+  }
+
+  void _onEditTask(EditTask event, Emitter<TaskState> emit) {
+    final state = this.state;
+    List<Task> favoriteTasks = state.favoriteTasks;
+    if (event.oldTask.isFavorite == true) {}
   }
 
   @override

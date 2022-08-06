@@ -27,7 +27,9 @@ class TaskTile extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              Icon(Icons.star_outline),
+              task.isFavorite == false
+                  ? Icon(Icons.star_outline)
+                  : Icon(Icons.star),
               SizedBox(
                 width: 10,
               ),
@@ -46,7 +48,7 @@ class TaskTile extends StatelessWidget {
                     Text(DateFormat()
                         .add_yMMMd()
                         .add_Hms()
-                        .format(DateTime.parse(task.date)),
+                        .format(DateTime.parse(task.date))),
                   ],
                 ),
               ),
@@ -66,6 +68,8 @@ class TaskTile extends StatelessWidget {
             PopupMenu(
               task: task,
               cancelorDeleteCallBack: () => _removeTask(context, task),
+              likeorDislike: () =>
+                  context.read<TaskBloc>().add(TaskFavorite(task: task)),
             ),
           ],
         ),
